@@ -66,8 +66,8 @@ class Subadmins(models.Model):
     company_address = models.CharField(max_length=100,null=True,blank=True)
     company_city = models.CharField(max_length=100,null=True,blank=True)
     company_state = models.CharField(max_length=100)
-    comapany_area = models.CharField(max_length=100)
-    comapany_image = models.URLField(null=True,blank=True)
+    company_area = models.CharField(max_length=100)
+    company_image = models.URLField(null=True,blank=True)
     service_type = models.ForeignKey(ServiceType, on_delete=models.CASCADE, blank=True, null=True)
     working_hrs = models.IntegerField(null=True,blank=True)
     holidays = models.PositiveSmallIntegerField(choices=DAYS_CHOICES,default=None,null=True,blank=True)
@@ -83,4 +83,4 @@ class ratings_reviews(models.Model):
     review = models.TextField()
     
     def __str__(self):
-        return f'{self.user} - {self.subadmin}'
+        return f'{self.company}'

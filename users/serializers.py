@@ -22,9 +22,9 @@ class UserSerializer(serializers.ModelSerializer):
 class SubadminsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subadmins
-        fields = ['id','company_name','company_description','user','company_address','company_city','company_state','comapany_area','comapany_image','service_type','working_hrs','holidays']
+        fields = ['id','company_name','company_description','user','company_address','company_city','company_state','company_area','company_image','service_type','working_hrs','holidays']
 
 class UserRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserRecord
-        fields = ['id','name','phoneNo','username','image','address','city','state','area']
+        fields = ['id','name','phoneNo','username','image','address','city','state','area','user_type']
