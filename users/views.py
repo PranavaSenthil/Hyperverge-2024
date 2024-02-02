@@ -18,7 +18,7 @@ class RegisterView(APIView):
             print(serializer,"serializerrrrrrrrrrrrrrr")
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            return Response({'detail':'User created successfully','data':serializer.data})
+            return Response(serializer.data)
         except Exception as e:
             return Response({'error':str(e)})
     
@@ -55,4 +55,11 @@ class CreateSubAdmin(APIView):
         except Exception as e:
             return Response({'error':str(e)})
 
+class CreateUserRecord(APIView):
+    def post(self,request):
+            serializer = UserRecordSerializer(data=request.data)
+            print(request.data,"iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response({'detail':'Customer created successfully','data':serializer.data})
     

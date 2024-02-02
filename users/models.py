@@ -21,23 +21,23 @@ class UserRecord(models.Model):
         (WORKER, 'Worker'),
         (CUSTOMER, 'Customer'),
     ]
-    name = models.CharField(max_length=100)
-    username = models.OneToOneField('auth.User', on_delete=models.CASCADE,related_name="associated_user")
-    phoneNo = models.CharField(max_length=10)
-    image = models.ImageField(upload_to='images/')
+    name = models.CharField(max_length=100,null=True,blank=True)
+    username = models.OneToOneField('auth.User',on_delete=models.CASCADE,related_name='associated_user',null=True,blank=True)
+    phoneNo = models.CharField(max_length=10,null=True,blank=True)
+    image = models.URLField(null=True,blank=True)
     address = models.TextField(max_length=100)
     city = models.CharField(max_length=100)
     state = models.CharField(default = "Tamilnadu",max_length=100)
     area = models.CharField(max_length=100,blank=True,null=True)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
-    is_active = models.BooleanField(default=False)
-    user_type = models.PositiveSmallIntegerField(choices = USER_TYPES, default = 1)
+    latitude = models.FloatField(null=True,blank=True)
+    longitude = models.FloatField(null=True,blank=True)
+    is_active = models.BooleanField(default=False)  
+    user_type = models.PositiveSmallIntegerField(choices = USER_TYPES, default = 4)
     service_type = models.ForeignKey(ServiceType, on_delete=models.CASCADE, blank=True, null=True)
 
 
     def __str__(self):
-        return f'{self.name} - {self.email}'
+        return f'{self.name}'
     
     
 class Subadmins(models.Model):
@@ -59,17 +59,17 @@ class Subadmins(models.Model):
         (SUNDAY, 'Sunday'),
     ]
 
-    company_name = models.CharField(max_length=100)
-    company_description = models.TextField()
+    company_name = models.CharField(max_length=100,null=True,blank=True)
+    company_description = models.TextField(null=True,blank=True)
     user = models.ForeignKey(UserRecord, on_delete=models.CASCADE,limit_choices_to={'user_type': 2})
-    company_address = models.CharField(max_length=100)
-    company_city = models.CharField(max_length=100)
+    company_address = models.CharField(max_length=100,null=True,blank=True)
+    company_city = models.CharField(max_length=100,null=True,blank=True)
     company_state = models.CharField(max_length=100)
     comapany_area = models.CharField(max_length=100)
-    comapany_image = models.ImageField(upload_to='company_images')
+    comapany_image = models.URLField(null=True,blank=True)
     service_type = models.ForeignKey(ServiceType, on_delete=models.CASCADE, blank=True, null=True)
-    working_hrs = models.IntegerField()
-    holidays = models.PositiveSmallIntegerField(choices=DAYS_CHOICES,default=None)
+    working_hrs = models.IntegerField(null=True,blank=True)
+    holidays = models.PositiveSmallIntegerField(choices=DAYS_CHOICES,default=None,null=True,blank=True)
 
     def __str__(self):
         return f'{self.company_name} - {self.company_address}'
