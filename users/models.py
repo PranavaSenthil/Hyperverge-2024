@@ -84,3 +84,16 @@ class ratings_reviews(models.Model):
     
     def __str__(self):
         return f'{self.user} - {self.subadmin}'
+    
+
+class problem(models.Model):
+    date = models.DateField(auto_now_add=True)
+    problem_discription = models.TextField()
+    time = models.TimeField(auto_now_add=True)
+    customer = models.ForeignKey(UserRecord, on_delete=models.CASCADE,limit_choices_to={'user_type': 4},null=True,blank=True)
+    company_name = models.ForeignKey(Subadmins, on_delete=models.CASCADE,null=True,blank=True)
+    tagged_worker = models.ForeignKey(UserRecord,related_name="tagged_to", on_delete=models.CASCADE,limit_choices_to={'user_type': 3},null=True,blank=True)
+    status = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.customer} - {self.company_name}'
