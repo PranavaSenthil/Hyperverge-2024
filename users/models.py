@@ -11,18 +11,28 @@ class ServiceType(models.Model):
         return f'{self.name} - {self.description}'
     
 class UserRecord(models.Model):
+    SUPER_ADMIN = 1
+    SUB_ADMIN = 2
+    WORKER = 3
+    CUSTOMER = 4
+    USER_TYPES = [
+        (SUPER_ADMIN, 'Super_admin'),
+        (SUB_ADMIN, 'Sub_admin'),
+        (WORKER, 'Worker'),
+        (CUSTOMER, 'Customer'),
+    ]
     name = models.CharField(max_length=100)
     username = models.OneToOneField('auth.User', on_delete=models.CASCADE,related_name="associated_user")
     phoneNo = models.CharField(max_length=10)
     image = models.ImageField(upload_to='images/')
     address = models.TextField(max_length=100)
     city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
+    state = models.CharField(default = "Tamilnadu",max_length=100)
+    area = models.CharField(max_length=100,blank=True,null=True)
     latitude = models.FloatField()
     longitude = models.FloatField()
-    pincode = models.CharField(max_length=6)
     is_active = models.BooleanField(default=False)
-    is_super_admin = models.BooleanField(default=False)
+    user_type = models.PositiveSmallIntegerField(choices = USER_TYPES, default = 1)
     service_type = models.ForeignKey(ServiceType, on_delete=models.CASCADE, blank=True, null=True)
 
 
@@ -51,13 +61,11 @@ class Subadmins(models.Model):
 
     company_name = models.CharField(max_length=100)
     company_description = models.TextField()
-    user = models.ForeignKey(UserRecord, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserRecord, on_delete=models.CASCADE,limit_choices_to={'user_type': 2})
     company_address = models.CharField(max_length=100)
     company_city = models.CharField(max_length=100)
     company_state = models.CharField(max_length=100)
-    company_district = models.CharField(max_length=100)
     comapany_area = models.CharField(max_length=100)
-    company_pincode = models.CharField(max_length=6)
     comapany_image = models.ImageField(upload_to='company_images')
     service_type = models.ForeignKey(ServiceType, on_delete=models.CASCADE, blank=True, null=True)
     working_hrs = models.IntegerField()

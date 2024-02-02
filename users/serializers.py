@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from users.models import *
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,3 +18,8 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+    
+class SubadminsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subadmins
+        fields = ['id','company_name','company_description','user','company_address','company_city','company_state','comapany_area','comapany_image','service_type','working_hrs','holidays']
