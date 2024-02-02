@@ -43,3 +43,4 @@ class CompanyView(APIView):
             return Response({"subadmins": serializer.data, "ratings_reviews": rating_review})
         except Exception as e:
             return Response({'error':str(e)})
+        

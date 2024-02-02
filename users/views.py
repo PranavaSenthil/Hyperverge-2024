@@ -65,5 +65,12 @@ class CreateUserRecord(APIView):
             return Response({'detail':'Customer created successfully','data':serializer.data})
     
 
+class UserProblem(APIView):
+    def post(self,request):
+        serializer = ProblemSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'detail':'Problem created successfully','data':serializer.data})
+        
 
 

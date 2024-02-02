@@ -28,3 +28,8 @@ class UserRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserRecord
         fields = ['id','name','phoneNo','username','image','address','city','state','area','user_type']
+
+class ProblemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = problem
+        fields = ['id','date','problem_discription','time','customer','company_name']
