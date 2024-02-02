@@ -25,20 +25,21 @@ class UserRecord(models.Model):
     username = models.OneToOneField('auth.User',on_delete=models.CASCADE,related_name='associated_user',null=True,blank=True)
     phoneNo = models.CharField(max_length=10,null=True,blank=True)
     image = models.URLField(null=True,blank=True)
-    address = models.TextField(max_length=100)
-    city = models.CharField(max_length=100)
-    state = models.CharField(default = "Tamilnadu",max_length=100)
+    address = models.TextField(max_length=100,null=True,blank=True)
+    city = models.CharField(max_length=100,null=True,blank=True)
+    state = models.CharField(default = "Tamilnadu",max_length=100,null=True,blank=True)
     area = models.CharField(max_length=100,blank=True,null=True)
     latitude = models.FloatField(null=True,blank=True)
     longitude = models.FloatField(null=True,blank=True)
     is_active = models.BooleanField(default=False)  
     user_type = models.PositiveSmallIntegerField(choices = USER_TYPES, default = 4)
+    subadmin = models.ForeignKey('Subadmins', on_delete=models.CASCADE, blank=True, null=True)
     service_type = models.ForeignKey(ServiceType, on_delete=models.CASCADE, blank=True, null=True)
 
 
     def __str__(self):
         return f'{self.name}'
-    
+
     
 class Subadmins(models.Model):
     MONDAY = 1
@@ -73,6 +74,8 @@ class Subadmins(models.Model):
 
     def __str__(self):
         return f'{self.company_name} - {self.company_address}'
+    
+
     
 class ratings_reviews(models.Model):
     company = models.ForeignKey(Subadmins, on_delete=models.CASCADE)

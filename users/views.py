@@ -49,6 +49,7 @@ class CreateSubAdmin(APIView):
     def post(self,request):
         try:
             serializer = SubadminsSerializer(data=request.data)
+            print(request.data,"kkkkkkkkkkkkkkkkkkk")
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response({'detail':'Subadmin created successfully','data':serializer.data})
@@ -63,3 +64,6 @@ class CreateUserRecord(APIView):
             serializer.save()
             return Response({'detail':'Customer created successfully','data':serializer.data})
     
+
+
+
