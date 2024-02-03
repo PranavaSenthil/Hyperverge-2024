@@ -32,4 +32,4 @@ class UserRecordSerializer(serializers.ModelSerializer):
 class ProblemSerializer(serializers.ModelSerializer):
     class Meta:
         model = problem
-        fields = ['id','date','problem_discription','time','customer','company_name','tagged_worker']
+        fields = ['id','date','problem_discription','time','customer','company_name','tagged_worker','status']

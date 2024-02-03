@@ -81,6 +81,16 @@ class AssignProblem(APIView):
         probleminstance.tagged_worker_id = wokerId
         probleminstance.save()
         serializer = ProblemSerializer(probleminstance)
-        return Response({'detail':'Problem assigned successfully','data':serializer.data}) 
+        return Response({'detail':'Problem assigned successfully','data':serializer.data})
+
+class StatusUpdate(APIView):
+    def post(self,request):
+        problemId = request.data["id"]
+        status = request.data["status"]
+        probleminstance = problem.objects.get(id=problemId)
+        probleminstance.status = status
+        probleminstance.save()
+        serializer = ProblemSerializer(probleminstance)
+        return Response({'detail':'Status updated successfully','data':serializer.data}) 
 
 
