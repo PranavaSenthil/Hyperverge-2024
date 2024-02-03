@@ -87,9 +87,9 @@ class ratings_reviews(models.Model):
     
 
 class problem(models.Model):
-    date = models.DateField()
-    problem_discription = models.TextField()
-    time = models.TimeField()
+    date = models.DateField(null=True,blank=True)
+    problem_discription = models.TextField(null=True,blank=True)
+    time = models.TimeField(null=True,blank=True)
     customer = models.ForeignKey(UserRecord, on_delete=models.CASCADE,limit_choices_to={'user_type': 4},null=True,blank=True)
     company_name = models.ForeignKey(Subadmins, on_delete=models.CASCADE,null=True,blank=True)
     tagged_worker = models.ForeignKey(UserRecord,related_name="tagged_to", on_delete=models.CASCADE,limit_choices_to={'user_type': 3},null=True,blank=True)

@@ -8,6 +8,7 @@ urlpatterns = [
     path('create_subadmin/',CreateSubAdmin.as_view()),
     path('create_userrecord/',CreateUserRecord.as_view()),
     path('create_problem/',UserProblem.as_view()), 
+    path('assign_problem/',AssignProblem.as_view()),
 
     # path('view_subadmin/',SubadminsSerializer.as_view()),
 ]

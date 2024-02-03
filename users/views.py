@@ -71,6 +71,16 @@ class UserProblem(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'detail':'Problem created successfully','data':serializer.data})
-        
+
+
+class AssignProblem(APIView):
+    def post(self,request):
+        problemId = request.data["id"]
+        wokerId = request.data["tagged_worker"]
+        probleminstance = problem.objects.get(id=problemId)
+        probleminstance.tagged_worker_id = wokerId
+        probleminstance.save()
+        serializer = ProblemSerializer(probleminstance)
+        return Response({'detail':'Problem assigned successfully','data':serializer.data}) 
 
 
