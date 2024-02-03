@@ -7,4 +7,5 @@ urlpatterns = [
     path('get_ServiceType/',ServiceTypeview.as_view()),
     path('get_nearbySubadmin/',CompanyView.as_view()),
     path('assign_worker/',AssignWorker.as_view()),
+    path('view_workertasks/',ViewWorkertasks.as_view()),
 ]

@@ -56,3 +56,13 @@ class AssignWorker(APIView):
         except Exception as e:
             return Response({'error':str(e)})
     
+class ViewWorkertasks(APIView):
+    def get(self,request,*kwargs):
+        try:
+            worker_id = request.GET.get('worker_id')
+            problems = problem.objects.filter(tagged_worker_id=worker_id)
+            print(problems)
+            serializer = ProblemSerializer(problems,many=True)
+            return Response({'serializer':serializer.data})
+        except Exception as e:
+            return Response({'error':str(e)})
