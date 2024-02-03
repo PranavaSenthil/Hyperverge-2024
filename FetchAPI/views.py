@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from FetchAPI.serializer import SubAdminSerializer,ServiceTypeSerializer,RatingsReviewsSerializer
-from users.serializers import SubadminsSerializer
+from users.serializers import *
 from users.models import *
 
 # for superadmin
@@ -44,3 +44,15 @@ class CompanyView(APIView):
         except Exception as e:
             return Response({'error':str(e)})
         
+class AssignWorker(APIView):
+    def get(self,request,*kwargs):
+        try:
+            comp_id = request.GET.get('company_id')
+            problems = problem.objects.filter(company_name_id=comp_id)
+            worker = UserRecord.objects.filter(subadmin_id=comp_id)
+            serializer = ProblemSerializer(problems,many=True)
+            workerserializer = UserRecordSerializer(worker,many=True)
+            return Response({'serializer':serializer.data,'worker':workerserializer.data})
+        except Exception as e:
+            return Response({'error':str(e)})
+    
