@@ -77,8 +77,10 @@ class AssignProblem(APIView):
     def post(self,request):
         problemId = request.data["id"]
         wokerId = request.data["tagged_worker"]
+        slottime = request.data["time"]
         probleminstance = problem.objects.get(id=problemId)
         probleminstance.tagged_worker_id = wokerId
+        probleminstance.time = slottime
         probleminstance.save()
         serializer = ProblemSerializer(probleminstance)
         return Response({'detail':'Problem assigned successfully','data':serializer.data}) 

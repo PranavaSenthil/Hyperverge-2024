@@ -87,9 +87,25 @@ class ratings_reviews(models.Model):
     
 
 class problem(models.Model):
+    MORNING = 1
+    MIDMORNING = 2
+    AFTERNOON = 3
+    MIDAFTERNOON = 4
+    EVENING = 5
+    NIGHT = 6
+    TIME_CHOICES = [
+        (MORNING, '9:00 AM - 11:00 AM'),
+        (MIDMORNING, '11:00 AM - 1:00 PM'),
+        (AFTERNOON, '1:00 PM - 3:00 PM'),
+        (MIDAFTERNOON, '3:00 PM - 5:00 PM'),
+        (EVENING, '5:00 PM - 7:00 PM'),
+        (NIGHT, '7:00 PM - 9:00 PM'),
+
+    ]
+
     date = models.DateField(null=True,blank=True)
     problem_discription = models.TextField(null=True,blank=True)
-    time = models.TimeField(null=True,blank=True)
+    time = models.PositiveSmallIntegerField(choices=TIME_CHOICES,default=None,null=True,blank=True)
     customer = models.ForeignKey(UserRecord, on_delete=models.CASCADE,limit_choices_to={'user_type': 4},null=True,blank=True)
     company_name = models.ForeignKey(Subadmins, on_delete=models.CASCADE,null=True,blank=True)
     tagged_worker = models.ForeignKey(UserRecord,related_name="tagged_to", on_delete=models.CASCADE,limit_choices_to={'user_type': 3},null=True,blank=True)
